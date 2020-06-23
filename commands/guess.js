@@ -4,57 +4,26 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 const villagers = require("../villagers.json")
 
-// TODO fix the actual guessing portion of this
 exports.run = (client, message, args) => {
 	if (message.author.bot) return;
 	let wrongAnswer = true;
 	let showName = false;
 	let guessOn = false;
 	let randInt = Math.floor(Math.random() * 392);
-	let villagerName = villagers[randInt];
+	let villagerName = villagers[randInt].toLowerCase();
 	getVillagerPicture(villagerName, showName, message);
 	guessOn = true;
 	const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id);
-    // console.log(collector)
-    // collector.on('collect', message => {
-    //     if (message.content == villagerName) {
-    //         message.channel.send("that's correct! :partying_face: :partying_face:");
-    //     } else {
-    //         message.channel.send("that's incorrect! try again");
-    //     }
-    // });
-    console.log(args[0])
-    collector.on('end', collected => {
-    	console.log(message.content)
-    	if (args[0] !== villagerName) {
-    	collector.on('collect', message => {
-        if (args[0] == villagerName) {
+    console.log(args[0], villagerName)
+    collector.on('collect', message => {
+    	console.log("msg", message)
+        if (message.content.toLowerCase() === villagerName) {
             message.channel.send("that's correct! :partying_face: :partying_face:");
+            return collector.stop();
         } else {
             message.channel.send("that's incorrect! try again");
         }
     });
-    }
-	});
-	// if (guessOn) {
-	// 	if(wrongAnswer){
-	// 		if (message.author.bot) return;
-	// 		const args = message.content;
-	// 		let userInput = args.toLowerCase();
-	// 		console.log(userInput);
-	// 		if (userInput){
-	// 			console.log(villagerName);
-	// 			if (userInput === villagerName) {
-	// 				message.channel.send("that's correct! :partying_face: :partying_face:");
-	// 				wrongAnswer = false;
-	// 				guessOn = false;
-	// 			}
-	// 			else{
-	// 				message.channel.send("that's incorrect! try again");
-	// 			}
-	// 		}
-	// 	}
-	// }
 
 }
 
