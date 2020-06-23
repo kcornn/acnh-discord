@@ -86,42 +86,8 @@ function getVillagerPicture(villagerName, showName, message){
 		}
 	});
 }
-//commands load
-client.commands = new Discord.Collection();
-client.aliases = new Discord.Collection();
-fs.readdir('./commands/', (err, files) => {
-	if (err) console.error(err);
-	
-	files.forEach(f => {
-		let props = require(`./commands/${f}`);
-		// log(`Command Loaded! ${props.help.name}`);
-		client.commands.set(props.help.name, props);
-		props.conf.aliases.forEach(alias => {
-			client.aliases.set(alias, props.help.name);
-		});
-	});
-});
 
-//command reload
-client.reload = command => {
-	return new Promise((resolve, reject) => {
-		try {
-			delete require.cache[require.resolve(`./commands/${command}`)];
-			let cmd = require(`./commands/${command}`);
-			client.commands.delete(command);
-			client.aliases.forEach((cmd, alias) => {
-				if (cmd === command) client.aliases.delete(alias);
-			});
-			client.commands.set(command, cmd);
-			cmd.conf.aliases.forEach(alias => {
-				client.aliases.set(alias, cmd.help.name);
-			});
-			resolve();
-		} catch (e) {
-			reject(e);
-		}
-	});
-};
+
 
 client.on("message", message => {
 
