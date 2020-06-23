@@ -6,8 +6,9 @@ const cheerio = require('cheerio');
 exports.run = (client, message, args) => {
 	if (message.author.bot) return;
 	const villagerName = args[0];
-	const command = args.shift().toLowerCase();
-	console.log(args, command)
+	let showName = true;
+	// const command = args.shift().toLowerCase();
+	// console.log(args, command)
 	getVillagerPicture(villagerName, showName, message);
 }
 
