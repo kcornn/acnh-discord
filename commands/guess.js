@@ -6,6 +6,7 @@ const villagers = require("../villagers.json")
 
 exports.run = (client, message, args) => {
 	if (message.author.bot) return;
+	let showName = false;
 	let randInt = Math.floor(Math.random() * 392);
 	let villagerName = villagers[randInt].toLowerCase();
 	getVillagerPicture(villagerName, showName, message);
