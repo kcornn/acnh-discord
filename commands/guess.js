@@ -6,13 +6,9 @@ const villagers = require("../villagers.json")
 
 exports.run = (client, message, args) => {
 	if (message.author.bot) return;
-	let wrongAnswer = true;
-	let showName = false;
-	let guessOn = false;
 	let randInt = Math.floor(Math.random() * 392);
 	let villagerName = villagers[randInt].toLowerCase();
 	getVillagerPicture(villagerName, showName, message);
-	guessOn = true;
 	const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id);
     console.log(args[0], villagerName)
     collector.on('collect', message => {
