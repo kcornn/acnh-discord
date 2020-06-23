@@ -15,7 +15,12 @@ exports.run = (client, message, args) => {
 function getVillagerPicture(villagerName, showName, message){
 	let picExists = false;
 	let villagerImgSrc;
-	let villagerEmbed = new Discord.MessageEmbed().setTitle(villagerName);
+	let villagerEmbed;
+	if (showName) {
+		villagerEmbed = new Discord.MessageEmbed().setTitle(villagerName);
+	} else {
+		villagerEmbed = new Discord.MessageEmbed().setTitle('??');
+	}
 	const link2 = `https://animalcrossing.fandom.com/wiki/${villagerName}_(villager)`;
 	request(link2, (err, res, body) => {
 		if (err) {
@@ -55,4 +60,6 @@ function getVillagerPicture(villagerName, showName, message){
 		}
 	});
 }
+
+exports.getVillagerPicture = getVillagerPicture;
 
