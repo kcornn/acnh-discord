@@ -9,7 +9,6 @@ exports.run = (client, message, args) => {
 	const fishName = fishNameArr.join(' ');
 	const fishNameDash = fishNameArr.join('-')
 	const fishNameUrl = `https://villagerdb.com/item/${fishNameDash}`;
-	console.log()
 	getPrice(fishName, fishNameUrl, message);
 }
 
