@@ -11,7 +11,7 @@ exports.run = (client, message, args) => {
 	let randInt = Math.floor(Math.random() * 392);
 	let villagerName = villagers[randInt].toLowerCase();
 	getVillagerPicture(villagerName, showName, message);
-	const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id);
+	const collector = new Discord.MessageCollector(message.channel, m => (m.author.id === message.author.id) || (m.author.id !== message.author.id));
     console.log(args[0], villagerName)
     collector.on('collect', message => {
     	console.log("msg", message)
@@ -19,7 +19,9 @@ exports.run = (client, message, args) => {
             message.channel.send("that's correct! :partying_face: :partying_face:");
             return collector.stop();
         } else {
-            message.channel.send("that's incorrect! try again");
+            if (message.content !== "" && !message.author.bot) {
+                message.channel.send("that's incorrect! try again");
+            }
         }
     });
 }

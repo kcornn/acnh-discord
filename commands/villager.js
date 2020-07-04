@@ -7,11 +7,11 @@ exports.run = (client, message, args) => {
 	if (message.author.bot) return;
 	const villagerName = args[0];
 	let showName = true;
-	// const command = args.shift().toLowerCase();
-	// console.log(args, command)
 	getVillagerPicture(villagerName, showName, message);
 }
 
+// todo: figure out what villagers have different urls than the ones currently checked
+// ex: sally's URL: https://animalcrossing.fandom.com/wiki/Sally_(Animal_Crossing) - !villager sally doesn't work
 function getVillagerPicture(villagerName, showName, message){
 	let picExists = false;
 	let villagerImgSrc;
